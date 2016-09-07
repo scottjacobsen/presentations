@@ -55,7 +55,7 @@ https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html
 - It requires a lot of typing
 - Often you need to change methods, potentially introducing other bugs
 - You tend to re-run the application over and over, tweaking your puts
-- Remeber to remove all your puts!
+- Remember to remove all your puts!
 
 * Use tools!
 
@@ -66,12 +66,15 @@ https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html
 There are a lot of debugging tools out there. If you google "how to
 debug ruby" references to any of these tools might come up.
 
-+ruby-debug+ Ruby 1.8
-+debugger+ Ruby up to 1.9.3?
-+debugger-pry+ No
-+pry-debugger+ NO
-+*debugger*+ _NO_
-byebug Ruby 2+
+- +ruby-debug+ Ruby 1.8
+- +debugger+ Ruby up to 1.9.3?
+- +debugger-pry+ No
+- +pry-debugger+ NO
+- +*debugger*+ _NO_
+- +pry-nav+ Obsolete
+- +pry-stack_explorer+ Obsolete
+- byebug Ruby 2+
+- pry-byebug Ruby 2+
 
 * Install byebug
 
@@ -97,6 +100,103 @@ Or, in a Rails project just put it in the Gemfile
 The ability to set breakpoints, step into methods, view variables,
 etc, is much more flexible than using puts.
 
+* byebug cons
+
+- Output is limited - monochrome, limited number of lines.
+- Viewing variables is tedious, not very pretty.
+- byebug is more of a foundation for more user friendly tools.
+
+* byebug + Pry
+
+[[./byebug_pry.jpg]]
+
+* What is Pry?
+
+"Pry is a powerful alternative to the standard IRB shell for Ruby. It
+features syntax highlighting, a flexible plugin architecture, runtime
+invocation and source and documentation browsing."
+
+http://pryrepl.org/
+
+* Install pry-byebug
+
+Install pry and a few nice plugins
+
+Install
+#+BEGIN_EXAMPLE
+  gem install pry-byebug
+  gem install pry-doc
+  gem install pry-inline
+#+END_EXAMPLE
+
+Or, in a Rails project just put it in the Gemfile
+
+#+BEGIN_SRC ruby
+  group :development, :test
+    gem "pry-byebug"
+    gem "pry-doc"
+    gem "pry-inline"
+    gem "pry-rails"
+  end
+#+END_SRC
+
+* What did we just install?
+
+- pry-byebug
+It combines pry and byebug, basically giving byebug an awesome command
+line.
+
+- pry-doc
+It provides full access to the documentation and source code for the
+ruby standard library and all installed gems.
+
+- pry-inline
+It displays variable values inline with the code (sort of like
+chrome). You'll see.
+
+- pry-rails
+It causes `rails console` to use Pry, rather than irb. It includes
+commands to pretty print models and show routes from the console.
+
+* A simple pry-byebug example
+
+[[./simple_pry/simple_pry.rb][simple_pry.rb]]
+
+* Pry pros
+
+- Syntax highlighting
+- Ability to jump to the editor from the debugger
+- Pretty printing of data structures
+- Advanced code navigation (cd and friends)
+- pry-doc
+- Lots of built in functionality (see the wiki)
+- Lots of awesome plugins
+
+* Pry cons
+
+- Lots of built in functionality (command line overload)
+- Plugins are of varying quality. Need to experiment
+- Some obsolete plugins are not clearly marked as obsolete
+- Sometimes team members can't agree on one set of plugins
+
+* Debugging with an IDE
+
+[[./ruby-mine.png]]
+
+* This is going to be awesome
+
+An IDE should be super intuitive. It should just work out of box.
+
+[[./ruby-mine.png]]
+
+* Here we go!
+
+[[./ruby-mine.png]]
+
+* Womp womp
+
+[[./ruby-mine-fail.png]]
+
 * References
 self.url
 => https://github.com/scottjacobsen/presentations/tree/master/debugging
@@ -106,6 +206,12 @@ self.url
 
 "Byebug cheetsheet".url
 => http://fleeblewidget.co.uk/2014/05/byebug-cheatsheet/
+
+"Pry".url
+=> http://pryrepl.org/
+
+"DHH doesn't grok Pry".url
+=> https://github.com/rails/rails/issues/18473
 
 "Awesome Print".url
 => https://github.com/awesome-print/awesome_print/

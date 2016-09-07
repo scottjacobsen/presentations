@@ -1,22 +1,23 @@
 #!/usr/bin/env ruby
 
 require 'byebug'
+require 'pry'
+require 'active_support/core_ext/hash/reverse_merge'
 
 def dasherizes(list)
-  # display list2
-  # break 10
+  # edit -c
   list2 = []
   list.each do |item|
     list2 << item.tr('_+', '-')
   end
-  byebug
+  binding.pry
 end
 
 def hi
   puts 'hello world'
 end
 
-byebug
+binding.pry
 
 # step (notice you can't see many lines!)
 dasherizes(['hello+world', 'use_the_force'])
@@ -28,7 +29,19 @@ hi
 hash = 50.times.each_with_object({}) do |i, h|
   h[i] = "*" * i
 end
+binding.pry
+# show hash
 
-byebug
+binding.pry
 # help (show the awesome help)
+
+binding.pry
+# demo pry-doc (? and $ "foo".length)
+
+binding.pry
+# demo pry-doc (? and $ hash.reverse_merge)
+
+binding.pry
+# cd hash and look around
+
 puts 'Done!'
