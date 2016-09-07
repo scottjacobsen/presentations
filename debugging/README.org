@@ -1,0 +1,111 @@
+* Debugging
+
+Scott Jacobsen
+
+https://github.com/scottjacobsen
+
+* in the beginning
+
+[[./puts.jpg]]
+
+* puts
+
+Use the 'puts' method to just write things to standard output.
+
+What exactly does `dasherizes` do?
+
+#+BEGIN_SRC ruby
+  def dasherizes(string)
+    string.tr("_+", "-")
+  end
+#+END_SRC
+
+* how to puts
+
+Throw in some `puts` and see.
+
+#+BEGIN_SRC ruby
+  def dasherizes(string)
+    puts "#" * 10
+    puts string
+    string.tr("_+", "-").tap do |s|
+      puts s
+      puts "#" * 10
+    end
+  end
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+  ##########
+  hello+world_good_morning
+  hello-world-good-morning
+  ##########
+#+END_EXAMPLE
+
+* puts pros
+
+Puts debugging is easy. There is nothing to learn, and nothing to
+install. This is generally how new Ruby programmers get going.
+
+Advanced puts debugging - "I am a puts debugger"
+https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html
+
+* puts cons
+
+- It requires a lot of typing
+- Often you need to change methods, potentially introducing other bugs
+- You tend to re-run the application over and over, tweaking your puts
+- Remeber to remove all your puts!
+
+* Use tools!
+
+[[./tools.jpg]]
+
+* Which tools?
+
+There are a lot of debugging tools out there. If you google "how to
+debug ruby" references to any of these tools might come up.
+
++ruby-debug+ Ruby 1.8
++debugger+ Ruby up to 1.9.3?
++debugger-pry+ No
++pry-debugger+ NO
++*debugger*+ _NO_
+byebug Ruby 2+
+
+* Install byebug
+
+Install
+#+BEGIN_EXAMPLE
+  gem install byebug
+#+END_EXAMPLE
+
+Or, in a Rails project just put it in the Gemfile
+
+#+BEGIN_SRC ruby
+  group :development, :test
+    gem "byebug"
+  end
+#+END_SRC
+
+* A simple byebug example
+
+[[file:./simple_byebug/simple_byebug.rb][simple_byebug.rb]]
+
+* byebug pros
+
+The ability to set breakpoints, step into methods, view variables,
+etc, is much more flexible than using puts.
+
+* References
+self.url
+=> https://github.com/scottjacobsen/presentations/tree/master/debugging
+
+"I am a puts debugger".url
+=> https://tenderlovemaking.com/2016/02/05/i-am-a-puts-debuggerer.html
+
+"Byebug cheetsheet".url
+=> http://fleeblewidget.co.uk/2014/05/byebug-cheatsheet/
+
+"Awesome Print".url
+=> https://github.com/awesome-print/awesome_print/
